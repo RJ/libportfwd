@@ -1,4 +1,4 @@
-#include "portfwd.h"
+#include "portfwd/portfwd.h"
 int main(int argc, char** argv)
 {
     if(argc!=3)

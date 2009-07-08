@@ -30,9 +30,12 @@ ADD_LIBRARY(portfwd STATIC
         src/portfwd.cpp
 )
 
-ADD_EXECUTABLE(portfwd-test
+ADD_EXECUTABLE(portfwd-demo
                src/main.cpp
               )
-TARGET_LINK_LIBRARIES(portfwd-test portfwd)
 
+TARGET_LINK_LIBRARIES(portfwd-demo portfwd)
 
+INSTALL(TARGETS portfwd ARCHIVE DESTINATION lib)
+INSTALL(TARGETS portfwd-demo RUNTIME DESTINATION bin)
+INSTALL(DIRECTORY include/portfwd DESTINATION include PATTERN "*~" EXCLUDE)
