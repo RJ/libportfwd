@@ -18,6 +18,15 @@ Portfwd::~Portfwd()
 bool
 Portfwd::init(unsigned int timeout)
 {
+#ifdef WIN32
+    WSADATA wsaData;
+    int nResult = WSAStartup(MAKEWORD(2,2), &wsaData);
+    if(nResult != NO_ERROR)
+    {
+        fprintf(stderr, "WSAStartup() failed.\n");
+        return -1;
+    }
+#endif
    struct UPNPDev * devlist;
    struct UPNPDev * dev;
    char * descXML;
