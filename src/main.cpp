@@ -1,22 +1,24 @@
 #include "portfwd/portfwd.h"
 int main(int argc, char** argv)
 {
-    if(argc!=3)
+    if(argc!=2)
     {
-        printf("Usage: %s <lan ip> <port>\n", argv[0]);
+        printf("Usage: %s <port>\n", argv[0]);
         return 1;
     }
-    int port = atoi(argv[2]);
-    std::string lanip = std::string(argv[1]);
-    printf("Using %s:%d\n", lanip.c_str(), port);
+    int port = atoi(argv[1]);
     Portfwd pf;
-    if(!pf.init())
+    if(!pf.init(2000))
     {
         printf("Portfwd.init() failed.\n");
         return 2;
     }
     printf("External IP: %s\n", pf.external_ip().c_str());
-    printf("%s\n", ((pf.add( lanip, port ))?"Added":"Failed to add") );
+    printf("LAN IP: %s\n", pf.lan_ip().c_str());
+    printf("Max upstream: %d bps, max downstream: %d bps\n",
+           pf.max_upstream_bps(), pf.max_downstream_bps() );
+           
+    printf("%s\n", ((pf.add( port ))?"Added":"Failed to add") );
 
     printf("Any key to exit...\n");
     char foo;
