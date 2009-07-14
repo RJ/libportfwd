@@ -1,12 +1,16 @@
 libportfwd
 ----------
 A basic, lightweight c++ wrapper around miniupnp and nat-pmp libraries
-for setting up port fwds, and finding out external IP address.
+for setting up port fwds, detecting max up/downstream bandwidth, and 
+finding out external IP address.
 
 See: http://miniupnp.free.fr/
 
-Designed to wrap up miniupnpc/natpmp libs into a static lib with a small API
+Designed to wrap up miniupnpc+natpmp libs into a static lib with a small API
 so other projects can easily setup port fwds without shipping extra libs/deps.
+
+Should detect any upnp or nat-pmp router and automatically use the appropriate
+library under the hood.
 
 Uses cmake to build needed bits of miniupnpc..
 
@@ -20,7 +24,7 @@ Usage
 See the demo in main.cpp, but here's the jist:
 
  Portfwd pf;
- pf.init();
- pf.add("192.168.1.2", 1234); // your lan IP, and port to fwd
- pf.remove(1234); // remove port fwding on exit!
+ pf.init(2000);   // 2000 = ms to wait for response from router
+ pf.add(1234);    // port to fwd to you
+ pf.remove(1234); // remove port fwding on exit
 
