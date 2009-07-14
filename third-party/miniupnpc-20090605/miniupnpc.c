@@ -139,6 +139,7 @@ int simpleUPnPcommand(int s, const char * url, const char * service,
                       const char * action, struct UPNParg * args,
                       char * buffer, int * bufsize)
 {
+    if(!url) return -1;
 	struct sockaddr_in dest;
 	char hostname[MAXHOSTNAMELEN+1];
 	unsigned short port = 0;
